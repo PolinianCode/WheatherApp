@@ -13,7 +13,7 @@ class MQTTManager: NSObject, ObservableObject, MQTTSessionDelegate {
     }
 
     func establishConnection() {
-        let host = "192.168.31.64"
+        let host = "52.138.220.122"
         let port: UInt16 = 1883
         let clientID = UUID().uuidString
 
@@ -24,13 +24,13 @@ class MQTTManager: NSObject, ObservableObject, MQTTSessionDelegate {
             if error == .none {
                 self.subscribeToChannels()
             } else {
-                print("Error occurred during connection: \(error.description)")
+                print("Error during connection: \(error.description)")
             }
         }
     }
 
     func subscribeToChannels() {
-        let topics = ["home/sensors/temperature", "home/sensors/humidity"]
+        let topics = ["home/sensors/temperature", "home/sensors/humidity", "home/sensors/light"]
         for topic in topics {
             mqttSession.subscribe(to: topic, delivering: .atLeastOnce) { (error) in
                 if error == .none {
@@ -54,6 +54,11 @@ class MQTTManager: NSObject, ObservableObject, MQTTSessionDelegate {
         case "home/sensors/humidity":
             DispatchQueue.main.async {
                 self.humidity = payload
+                print(payload)
+            }
+        case "home/sensors/light":
+            DispatchQueue.main.async {
+                self.lightIntensity = payload
                 print(payload)
             }
         default:

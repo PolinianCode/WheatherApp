@@ -49,7 +49,8 @@ struct ContentView: View {
                 // Weather Info
                 VStack(spacing: 20) {
                     weatherTile(icon: "thermometer", title: "Temperature", value: "\(mqttManager.temperature)°C")
-                                        weatherTile(icon: "drop.fill", title: "Humidity", value: "\(mqttManager.humidity)%")
+                    weatherTile(icon: "drop.fill", title: "Humidity", value: "\(mqttManager.humidity)%")
+                    weatherTile(icon: "sun.max", title: "Light intenisty", value: "\(mqttManager.lightIntensity) lux")
                 }
                                 .padding()
                 Spacer()
